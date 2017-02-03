@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
@@ -16,10 +11,8 @@ namespace ConsoleApplication1
         {
             try
             {
-
                 string url = ConfigurationManager.AppSettings["watchIpAndPort"];
                 string serviceName = ConfigurationManager.AppSettings["serviceName"];
-
                 Process p = new Process();
                 p.StartInfo.FileName = "cmd.exe";//设置启动的应用程序  
                 p.StartInfo.UseShellExecute = false;//禁止使用操作系统外壳程序启动进程  
@@ -28,30 +21,42 @@ namespace ConsoleApplication1
                 p.StartInfo.RedirectStandardError = true;//将错误信息写入流  
                 p.StartInfo.CreateNoWindow = true;
                 p.Start();
-                p.StandardInput.WriteLine(@"netstat -a -n");
+                p.StandardInput.WriteLine(@"netstat -a -n -p TCP");
                 bool isRunning = false;
+                int lineCount = 0;
+                int configLineCount = int.Parse(ConfigurationManager.AppSettings["lineCount"]);
+                List<string> list = new List<string>();
                 while ((p.StandardOutput.ReadLine()) != null)
                 {
                     var str = p.StandardOutput.ReadLine();
-                    if (str != null && str.IndexOf(url, StringComparison.Ordinal) != -1 && str.IndexOf("ESTABLISHED", StringComparison.Ordinal) != -1)
+                    list.Add(str);
+                    if (lineCount++ > configLineCount)
                     {
-                        isRunning = true;
                         break;
                     }
                 }
+
+                //
+                if (list.Contains(url))
+                {
+                    isRunning = true;
+                }
+
+                //
                 p.StandardInput.Flush();
                 p.StandardInput.AutoFlush = true;
                 p.Start();
-                p.StandardInput.WriteLine("net {0} {1}", isRunning ? "start" : "stop", serviceName);
+                if (!isRunning)
+                {
+                    p.StandardInput.WriteLine("net start {0}", serviceName);
+                }
                 p.WaitForExit();
-                p.Close();
+                //p.Close();
             }
             catch (Exception e)
             {
-                throw e;
+                Console.WriteLine(e);
             }
-
-
 
         }
 

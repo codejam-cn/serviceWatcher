@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.ServiceProcess;
@@ -48,21 +49,35 @@ namespace FreeProxyWatcher
             p.StartInfo.RedirectStandardError = true;//将错误信息写入流  
             p.StartInfo.CreateNoWindow = true;
             p.Start();
-            p.StandardInput.WriteLine(@"netstat -a -n");
+            p.StandardInput.WriteLine(@"netstat -a -n -p TCP");
             bool isRunning = false;
+            int lineCount = 0;
+            int configLineCount = int.Parse(ConfigurationManager.AppSettings["lineCount"]);
+            List<string> list = new List<string>();
             while ((p.StandardOutput.ReadLine()) != null)
             {
                 var str = p.StandardOutput.ReadLine();
-                if (str != null && str.IndexOf(url, StringComparison.Ordinal) != -1 && str.IndexOf("ESTABLISHED", StringComparison.Ordinal) != -1)
+                list.Add(str);
+                if (lineCount++ > configLineCount)
                 {
-                    isRunning = true;
                     break;
                 }
             }
+
+            //
+            if (list.Contains(url))
+            {
+                isRunning = true;
+            }
+
+            //
             p.StandardInput.Flush();
             p.StandardInput.AutoFlush = true;
             p.Start();
-            p.StandardInput.WriteLine("net {0} {1}", isRunning ? "start" : "stop", serviceName);
+            if (!isRunning)
+            {
+                p.StandardInput.WriteLine("net start {0}", serviceName);
+            }
             p.WaitForExit();
             p.Close();
         }
