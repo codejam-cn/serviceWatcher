@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeProxyWatcher", "FreeProxyWatcher\FreeProxyWatcher.csproj", "{268DB9B4-167E-401C-A235-44C053A434B7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{21364DB2-447D-46A8-9B11-626A25ECFB5D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", "WindowsFormsApplication1\WindowsFormsApplication1.csproj", "{43830B1D-7E1A-4BA4-B837-CEF743574F64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		{268DB9B4-167E-401C-A235-44C053A434B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{268DB9B4-167E-401C-A235-44C053A434B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{268DB9B4-167E-401C-A235-44C053A434B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21364DB2-447D-46A8-9B11-626A25ECFB5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21364DB2-447D-46A8-9B11-626A25ECFB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21364DB2-447D-46A8-9B11-626A25ECFB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21364DB2-447D-46A8-9B11-626A25ECFB5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43830B1D-7E1A-4BA4-B837-CEF743574F64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43830B1D-7E1A-4BA4-B837-CEF743574F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43830B1D-7E1A-4BA4-B837-CEF743574F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43830B1D-7E1A-4BA4-B837-CEF743574F64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
